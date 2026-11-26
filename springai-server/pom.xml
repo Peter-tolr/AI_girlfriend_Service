@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mdkj</groupId>
+        <artifactId>AICompanion</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>springai-server</artifactId>
+    <!-- 项目有 main 方法，用可执行 jar 启动；没有 SpringBootServletInitializer，war 没有意义 -->
+    <packaging>jar</packaging>
+    <name>springai-server</name>
+
+    <dependencies>
+        <!--spring-boot-starter-web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--
+          spring-ai-openai-starter：对话走标准 OpenAI 协议。
+          DeepSeek、Kimi、智谱、OpenAI、Ollama、火山方舟、各类中转站都能直接用，
+          只需在 .env 里改 AI_BASE_URL / AI_API_KEY / AI_MODEL。
+          阿里云百炼本身也提供 OpenAI 兼容模式，同样走这条链路。
+        -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        </dependency>
+        <!--测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!--
+              人设文件只维护一份：仓库根的 companion_skill/。
+              打包时复制到 jar 内的 companion/，运行时优先读外部目录，读不到再回落到这里。
+            -->
+            <resource>
+                <directory>${project.basedir}/../companion_skill</directory>
+                <targetPath>companion</targetPath>
+                <includes>
+                    <include>persona.md</include>
+                    <include>examples.jsonl</include>
+                    <include>guardrails.md</include>
+                </includes>
+            </resource>
+        </resources>
+        <finalName>springai-server</finalName>
+        <plugins>
+            <!-- 没有这个插件时 mvn spring-boot:run / java -jar 都不可用 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

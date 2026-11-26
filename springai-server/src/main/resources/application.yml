@@ -1,0 +1,32 @@
+server:
+  port: 5501 # 端口号
+spring:
+  application:
+    name: ai-companion # 项目名称
+  ai:
+    # ===== 对话：任何 OpenAI 兼容接口都能用 =====
+    #   阿里云百炼  https://dashscope.aliyuncs.com/compatible-mode   qwen-plus
+    #   DeepSeek   https://api.deepseek.com                        deepseek-chat
+    #   Kimi       https://api.moonshot.cn/v1                       moonshot-v1-8k
+    #   智谱 GLM    https://open.bigmodel.cn/api/paas/v4             glm-4-flash
+    #   OpenAI     https://api.openai.com                          gpt-4o-mini
+    #   Ollama     http://localhost:11434/v1                        qwen2.5:7b
+    #   火山方舟    https://ark.cn-beijing.volces.com/api/v3         doubao-...
+    # base-url 带不带 /v1、/v4 都能识别，见 AiEnvironmentPostProcessor
+    openai:
+      api-key: ${AI_API_KEY:${DASHSCOPE_API_KEY:not-configured}}
+      base-url: ${AI_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode}
+      chat:
+        options:
+          model: ${AI_MODEL:qwen-plus}
+          temperature: 0.9 # 高一点更像真人，太高容易胡说
+          max-tokens: 220 # 她本来就话少，顺手省点钱
+app:
+  persona:
+    # 人设目录：优先读工作目录下的 companion_skill/（改完重启即生效），没有就用 jar 内的副本
+    dir: ${AI_PERSONA_DIR:./companion_skill}
+    # 注入几条聊天样例：默认 20 条（5 个场景各 4 条真实对话）
+    few-shot-limit: 20
+  chat:
+    # 记忆最近几条消息
+    memory-size: 10

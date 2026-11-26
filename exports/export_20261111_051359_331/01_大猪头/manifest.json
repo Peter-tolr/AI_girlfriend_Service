@@ -1,0 +1,55 @@
+{
+ "generator": "stories-in-wx",
+ "export_version": "1.0",
+ "created_at": "2026-11-11T05:14:36",
+ "chat": "wxid_9v6b4xc74qjq12",
+ "display": "大猪头",
+ "collected_count": 67269,
+ "written_count": 67269,
+ "written_total": 67269,
+ "truncated": {
+  "json": 0
+ },
+ "files": [
+  "D:\\exports\\export_20261111_051359_331\\01_大猪头\\大猪头_20261111_051402_810.json"
+ ],
+ "parse": {
+  "type_counts": {
+   "10000": 341,
+   "1": 48132,
+   "49": 2107,
+   "3": 1852,
+   "47": 13345,
+   "42": 2,
+   "43": 110,
+   "34": 1033,
+   "48": 2,
+   "50": 345
+  },
+  "quote_parsed": 1767,
+  "quote_failed": 0,
+  "link_parsed": 297,
+  "merged_forward_messages": 8,
+  "merged_forward_items": 64,
+  "fallback_labels": 16726,
+  "media_attached": 623
+ },
+ "media": {
+  "images_requested": 0,
+  "images_ok": 0,
+  "voices_requested": 1033,
+  "voices_ok": 623,
+  "stickers_requested": 0,
+  "stickers_ok": 0,
+  "videos_requested": 0,
+  "videos_ok": 0,
+  "videos_skipped": 0,
+  "files_requested": 0,
+  "files_ok": 0,
+  "files_skipped": 0,
+  "record_subitem_voices": 0,
+  "record_subitem_videos": 0,
+  "record_subitem_files": 0
+ },
+ "avatar_count": 5
+}
